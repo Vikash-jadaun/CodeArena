@@ -26,6 +26,11 @@ app.use('/problem',problemRouter);
 app.use('/submission',submitRouter)
 app.use('/ai',aiRouter);
 app.use("/video",videoRouter);
+app.use('/api/user', authRouter);
+app.use('/api/problem', problemRouter);
+app.use('/api/submission', submitRouter);
+app.use('/api/ai', aiRouter);
+app.use('/api/video', videoRouter);
 
 const InitializeConnection=async ()=>{
   try{
