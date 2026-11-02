@@ -1,0 +1,32 @@
+import { useEffect, useState } from 'react';
+import { Eye, EyeOff } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, NavLink } from 'react-router';
+import { loginUser } from '../authSlice';
+import { ThemeToggle } from '../components/ThemeProvider';
+
+const schema = z.object({ emailID: z.string().email('Enter a valid email address'), password: z.string().min(8, 'Password must be at least 8 characters') });
+
+export default function Login() {
+  const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isAuthenticated, loading, error } = useSelector((state) => state.auth);
+  const { register, handleSubmit, formState: { errors } } = useForm({ resolver: zodResolver(schema) });
+  useEffect(() => { if (isAuthenticated) navigate('/'); }, [isAuthenticated, navigate]);
+
+  return <div className="auth-page">
+    <aside className="auth-aside"><NavLink className="brand" to="/"><span className="brand-mark">CA</span><span>CodeArena</span></NavLink><div><p className="eyebrow">Practice with purpose</p><h1>Make every problem-solving session count.</h1><p>A focused space to build your skills, track your progress, and write better code.</p></div><span style={{ color: '#A1A1AA', fontSize: 12 }}>CodeArena · Learn by doing</span></aside>
+    <main className="auth-main"><div style={{ position: 'absolute', top: 18, right: 18 }}><ThemeToggle /></div><section className="auth-card"><p className="eyebrow">Welcome back</p><h2>Sign in to CodeArena</h2><p>Continue your practice where you left off.</p>
+      {error && <div className="form-error" role="alert" style={{ marginBottom: 14 }}>{error}</div>}
+      <form onSubmit={handleSubmit((data) => dispatch(loginUser(data)))}>
+        <div className="form-field"><label htmlFor="emailID">Email address</label><input id="emailID" type="email" autoComplete="email" placeholder="you@example.com" className="field" {...register('emailID')} />{errors.emailID && <span className="form-error">{errors.emailID.message}</span>}</div>
+        <div className="form-field"><label htmlFor="password">Password</label><div style={{ position: 'relative' }}><input id="password" type={showPassword ? 'text' : 'password'} autoComplete="current-password" placeholder="Enter your password" className="field" style={{ width: '100%', paddingRight: 43 }} {...register('password')} /><button type="button" className="icon-button" onClick={() => setShowPassword((value) => !value)} aria-label={showPassword ? 'Hide password' : 'Show password'} style={{ position: 'absolute', right: 4, top: 3, border: 0 }}><span className="sr-only">{showPassword ? 'Hide password' : 'Show password'}</span>{showPassword ? <EyeOff size={16} /> : <Eye size={16} />}</button></div>{errors.password && <span className="form-error">{errors.password.message}</span>}</div>
+        <button className="primary-button" style={{ width: '100%', marginTop: 8 }} type="submit" disabled={loading}>{loading ? 'Signing in…' : 'Sign in'}</button>
+      </form><div className="auth-footer">New to CodeArena? <NavLink to="/signup" className="text-link">Create an account</NavLink></div>
+    </section></main>
+  </div>;
+}
