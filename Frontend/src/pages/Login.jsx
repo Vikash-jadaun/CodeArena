@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, NavLink } from 'react-router';
 import { loginUser } from '../authSlice';
 import { ThemeToggle } from '../components/ThemeProvider';
+import BrandLogo from '../components/BrandLogo';
 
 const schema = z.object({ emailID: z.string().email('Enter a valid email address'), password: z.string().min(8, 'Password must be at least 8 characters') });
 
@@ -19,7 +20,7 @@ export default function Login() {
   useEffect(() => { if (isAuthenticated) navigate('/'); }, [isAuthenticated, navigate]);
 
   return <div className="auth-page">
-    <aside className="auth-aside"><NavLink className="brand" to="/"><span className="brand-mark">CA</span><span>CodeArena</span></NavLink><div><p className="eyebrow">Practice with purpose</p><h1>Make every problem-solving session count.</h1><p>A focused space to build your skills, track your progress, and write better code.</p></div><span style={{ color: '#A1A1AA', fontSize: 12 }}>CodeArena · Learn by doing</span></aside>
+    <aside className="auth-aside"><BrandLogo variant="full" showName={false} imageClassName="auth-brand-logo" /><div><p className="eyebrow">Practice with purpose</p><h1>Make every problem-solving session count.</h1><p>A focused space to build your skills, track your progress, and write better code.</p></div><span style={{ color: '#A1A1AA', fontSize: 12 }}>CodeArena · Learn by doing</span></aside>
     <main className="auth-main"><div style={{ position: 'absolute', top: 18, right: 18 }}><ThemeToggle /></div><section className="auth-card"><p className="eyebrow">Welcome back</p><h2>Sign in to CodeArena</h2><p>Continue your practice where you left off.</p>
       {error && <div className="form-error" role="alert" style={{ marginBottom: 14 }}>{error}</div>}
       <form onSubmit={handleSubmit((data) => dispatch(loginUser(data)))}>

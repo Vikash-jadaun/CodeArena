@@ -5,9 +5,10 @@ import axiosClient from "../utils/axiosClient"
 import SubmissionHistory from "../components/SubmissionHistory"
 import ChatAI from '../components/ChatAI';
 import Editorial from '../components/Editorial';
+import BrandLogo from '../components/BrandLogo';
 import { ArrowLeft, Expand, Sun, Moon, WandSparkles } from 'lucide-react';
 import { useTheme } from '../components/themeContext';
-import { useNavigate, NavLink } from 'react-router';
+import { useNavigate } from 'react-router';
 import { RunResult, SubmissionResult } from '../components/ExecutionResult';
 
 const langMap = {
@@ -345,7 +346,7 @@ const ProblemPage = () => {
       <header className="workspace-header">
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <button className="icon-button" aria-label="Back to problems" onClick={() => navigate('/')}><ArrowLeft size={16} /></button>
-          <NavLink className="brand" to="/"><span className="brand-mark">CA</span><span>CodeArena</span></NavLink>
+          <BrandLogo />
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <span className={getDifficultyColor(problem.difficulty)}>{problem.difficulty}</span>

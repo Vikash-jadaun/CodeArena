@@ -1,8 +1,9 @@
-import { Code2, LogOut } from 'lucide-react';
+import { LogOut } from 'lucide-react';
 import { NavLink } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../authSlice';
 import { ThemeToggle } from './ThemeProvider';
+import BrandLogo from './BrandLogo';
 
 export default function AppHeader() {
   const dispatch = useDispatch();
@@ -12,10 +13,7 @@ export default function AppHeader() {
 
   return (
     <header className="topbar">
-      <NavLink className="brand" to="/">
-        <span className="brand-mark"><Code2 size={17} /></span>
-        <span>CodeArena</span>
-      </NavLink>
+      <BrandLogo />
       <nav className="topbar-nav" aria-label="Main navigation">
         <NavLink className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} to="/">Problems</NavLink>
         {user?.role === 'admin' && <NavLink className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} to="/admin">Admin</NavLink>}

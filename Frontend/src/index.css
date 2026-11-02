@@ -49,7 +49,10 @@ a { color: inherit; text-decoration: none; }
 .app-shell { min-height: 100vh; background: var(--app-bg); color: var(--app-text); }
 .topbar { height: 66px; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 0 clamp(18px, 4vw, 48px); border-bottom: 1px solid var(--app-border); background: var(--app-sidebar); }
 .brand { display: inline-flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; letter-spacing: -.03em; }
-.brand-mark { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 9px; color: white; background: var(--app-primary); }
+.brand-logo { display: block; object-fit: contain; }
+.brand-logo-compact { width: 32px; height: 32px; border-radius: 7px; }
+.brand-logo-full { width: min(300px, 72vw); height: auto; max-height: 100px; object-position: left center; }
+.auth-brand-logo { margin-bottom: 4px; }
 .topbar-actions, .topbar-nav { display: flex; align-items: center; gap: 10px; }
 .topbar-nav { margin-left: auto; margin-right: 12px; }
 .nav-link { padding: 8px 11px; color: var(--app-muted); font-size: 13px; border-radius: 7px; }
